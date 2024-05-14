@@ -8,7 +8,7 @@ CREATE TABLE users (
   id SERIAL PRIMARY KEY NOT NULL,
   name VARCHAR(255) NOT NULL,
   email VARCHAR(255) NOT NULL,
-  password VARCHAR(255) NOT NULL
+  password VARCHAR(255) DEFAULT '$2a$10$FB/BOAVhpuLvpOREQVmvmezD4ED/.JBIDRh70tGevYzYzQgFId2u.'
 );
 
 --create table properties
@@ -17,7 +17,7 @@ CREATE TABLE properties (
   owner_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
 
   title VARCHAR(255) NOT NULL,
-  description TEXT,
+  description TEXT DEFAULT 'message',
   thumbnail_photo_url VARCHAR(255) NOT NULL,
   cover_photo_url VARCHAR(255) NOT NULL,
   cost_per_night INTEGER  NOT NULL DEFAULT 0,
@@ -50,7 +50,7 @@ CREATE TABLE property_reviews (
   property_id INTEGER REFERENCES properties(id) ON DELETE CASCADE,
   reservation_id INTEGER REFERENCES reservations(id) ON DELETE CASCADE,
   rating SMALLINT NOT NULL DEFAULT 0,
-  message TEXT
+  message TEXT DEFAULT 'message'
 );
 
 
