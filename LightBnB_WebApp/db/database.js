@@ -131,18 +131,18 @@ const getAllReservations = (guest_id, limit) =>  {
 ///////////////////////////////////////////////////////////////////////////////////////
 
 const getAllProperties = function (options, limit = 10) {
-  // 1
+  //define an empty arry queryParams
   const queryParams = [];
-  // 2
+  // define a string for holding the conditions of our db searc
   let queryString = `
   SELECT properties.*, avg(property_reviews.rating) as average_rating
   FROM properties
-  JOIN property_reviews ON properties.id = property_id
+  LEFT JOIN property_reviews ON properties.id = property_id
   `;
 
   queryString += `WHERE 1=1`;
 
-  // 3
+  // make different searchs based on case conditions
   if (options.city) {
     console.log(options)
     queryParams.push(`%${options.city}%`);
@@ -168,18 +168,19 @@ const getAllProperties = function (options, limit = 10) {
 
   }
 
-  // 4
+  // add this string to last of the above queryString
   queryParams.push(limit);
   queryString += `
   ORDER BY cost_per_night
   LIMIT $${queryParams.length};
   `;
 
-  // 5
+  // console.log(to see your querryString and queryParams
   console.log(queryString, queryParams);
 
-  // 6
-  return pool.query(queryString, queryParams).then((res) => res.rows);
+  // return through promise and update our web page
+  return pool.query(queryString, queryParams).then((res) => res.rows).catch((err) => console.log(err.message));
+             
 };
 
 
