@@ -152,7 +152,7 @@ const getAllProperties = function (options, limit = 10) {
     queryString += `AND owner_id = $${queryParams.length}`;
   }
   if (options.cost_per_night){
-    queryParams.push(`${options.minimum_price_per_night * 100}`);
+    queryParams.push(`${options.cost_per_night* 100}`);
   
     queryString += `AND cost_per_night BETWEEN $${queryParams.length-1} AND $${queryParams.length}`
 
