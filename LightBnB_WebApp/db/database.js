@@ -193,7 +193,7 @@ const getAllProperties = function (options, limit = 10) {
 ///////////////////////////////////////////////////////////////////////////////////////
 
 const addProperty = function (property) {
-  console.log(property.title)
+
 
   const queryString = ` INSERT INTO properties (
     owner_id, 
