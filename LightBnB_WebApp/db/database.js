@@ -153,6 +153,7 @@ const getAllProperties = function (options, limit = 10) {
   }
   if (options.cost_per_night){
     queryParams.push(`${options.cost_per_night* 100}`);
+    queryParams.push(`${options.cost_per_night* 100}`);
   
     queryString += `AND cost_per_night BETWEEN $${queryParams.length-1} AND $${queryParams.length}`
 
