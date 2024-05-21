@@ -81,7 +81,7 @@ const getUserWithEmail = (email) => {
   return pool
       .query('INSERT INTO users (name, password, email) VALUES ($1, $2, $3) RETURNING *;',[user.name, user.password, user.email])
       .then ((result) => {
-        return result;
+        return result.rows[0];
       })
       .catch((err) => {
         console.log(err.message);
