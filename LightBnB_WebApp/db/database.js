@@ -161,10 +161,16 @@ const getAllProperties = function (options, limit = 10) {
 
   }
 
+  queryString += `GROUP BY properties.id\n`;
+  if (options.minimum_rating) {
+    queryParams.push(`${options.minimum_rating}`);
+    queryString += `HAVING avg(rating) >= $${queryParams.length}\n`;
+
+  }
+
   // 4
   queryParams.push(limit);
   queryString += `
-  GROUP BY properties.id
   ORDER BY cost_per_night
   LIMIT $${queryParams.length};
   `;
