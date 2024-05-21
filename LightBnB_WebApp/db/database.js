@@ -11,9 +11,6 @@ const pool = new Pool({
   database: "lightbnb",
 });
 
-// // the following assumes that you named your connection variable `pool`
-// pool.query(`SELECT id, owner_id FROM properties LIMIT 10;`).then(response => {console.log("the response is:",response.rows)})
-// pool.end()
 
 
 
@@ -30,11 +27,9 @@ const getUserWithEmail = (email) => {
   return pool
     .query('SELECT * FROM users WHERE email = $1', [email])
     .then ((result) => {
-      console.log("----------------------------------------------")
-      console.log("this is properties using the email :",result);
-      console.log("----------------------------------------------")
+   
       if(result.rows.length > 0) {
-        console.log(result.rows[0]) ;
+       
         return result.rows[0];
         
 
@@ -44,7 +39,7 @@ const getUserWithEmail = (email) => {
     })
     .catch((err) => {
       console.log(err.message);
-      throw err;
+     
     });   
   };
   
@@ -59,11 +54,9 @@ const getUserWithEmail = (email) => {
   return pool
   .query('SELECT * FROM users WHERE id = $1', [id])
   .then ((result) => {
-    console.log("----------------------------------------------")
-    console.log("this is properties using the id :",result);
-    console.log("----------------------------------------------")
+  
     if(result.rows.length > 0) {
-      console.log(result.rows[0]) ;
+      
       return result.rows[0];
       
 
@@ -73,7 +66,7 @@ const getUserWithEmail = (email) => {
   })
   .catch((err) => {
     console.log(err.message);
-    throw err;
+
   });   
 };
 
@@ -84,9 +77,9 @@ const getUserWithEmail = (email) => {
    * @return {Promise<{}>} A promise to the user.
   */
  ///////////////////////////////////////////////////////////////////////////////////////
- const addUser = (name, password, email) {
+ const addUser = (user)=> {
   return pool
-      .query('INSERT INTO users (name, password, email) VALUES ($1, $2, $3) RETURNING *;',[name, password, email])
+      .query('INSERT INTO users (name, password, email) VALUES ($1, $2, $3) RETURNING *;',[user.name, user.password, user.email])
       .then ((result) => {
         return result;
       })
@@ -126,9 +119,7 @@ const getAllProperties = (options, limit = 1) => {
   return pool
   .query( `SELECT * FROM properties LIMIT $1`, [limit])
   .then ((result) => {
-    console.log("----------------------------------------------")
-    console.log("result for getAllProperties :",result.rows);
-    console.log("----------------------------------------------")
+
     return result.rows;
   })
     .catch((err) => {
