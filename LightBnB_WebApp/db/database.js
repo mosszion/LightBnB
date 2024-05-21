@@ -130,7 +130,7 @@ const getAllReservations = (guest_id, limit) =>  {
 //  */
 ///////////////////////////////////////////////////////////////////////////////////////
 
-const getAllProperties = (options, limit = 1) => {
+const getAllProperties = (options, limit) => {
   
   return pool
   .query( `SELECT * FROM properties LIMIT $1`, [limit])
