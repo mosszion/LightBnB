@@ -211,7 +211,11 @@ const addProperty = function (property) {
     number_of_bathrooms, 
     number_of_bedrooms) 
     VALUES 
-    ( `;
+    ($1, $2, $3,
+      $4, $5, $6,
+      $7, $8, $9,
+      $10, $11, $12,
+      $13, $14)`;
 
     queryParams.push(property.owner_id);
     queryParams.push(property.title);
@@ -228,14 +232,9 @@ const addProperty = function (property) {
     queryParams.push(property.number_of_bathrooms);
     queryParams.push(property.number_of_bedrooms);
 
-   for(let i = 0; i < queryParams.length ; i++) {
-    queryString += `$${queryParams[i]},`
-    if( i === queryParams.length-1) {
-      queryString += `$${queryParams[i]} )`
-    }
-   }
+   queryString += `RETURNING *;`
 
-   queryString += `RETRUNING *;`
+   return pool.query(queryString, queryParams).then((res) => res.rows).catch((err) => console.log(err.message));
   
 };
 
