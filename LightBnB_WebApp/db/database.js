@@ -144,6 +144,7 @@ const getAllProperties = function (options, limit = 10) {
 
   // 3
   if (options.city) {
+    console.log(options)
     queryParams.push(`%${options.city}%`);
     queryString += `AND city LIKE $${queryParams.length} `;
   }
@@ -151,11 +152,12 @@ const getAllProperties = function (options, limit = 10) {
     queryParams.push(`${options.owner_id}`);
     queryString += `AND owner_id = $${queryParams.length}`;
   }
-  if (options.cost_per_night){
-    queryParams.push(`${options.cost_per_night* 100}`);
-    queryParams.push(`${options.cost_per_night* 100}`);
+  if (options.minimum_price_per_night && options.maximum_price_per_night){
+    console.log(options);
+    queryParams.push(`${options.minimum_price_per_night * 100}`);
+    queryParams.push(`${options.maximum_price_per_night* 100}`);
   
-    queryString += `AND cost_per_night BETWEEN $${queryParams.length-1} AND $${queryParams.length}`
+    queryString += ` AND cost_per_night BETWEEN $${queryParams.length-1} AND $${queryParams.length}`
 
   }
 
