@@ -57,7 +57,7 @@ const getUserWithEmail = (email) => {
  ///////////////////////////////////////////////////////////////////////////////////////
  const getUserWithId = function (id) {
   return pool
-  .query('SELECT * FROM users WHERE email = $1', [id])
+  .query('SELECT * FROM users WHERE id = $1', [id])
   .then ((result) => {
     console.log("----------------------------------------------")
     console.log("this is properties using the id :",result);
@@ -84,11 +84,16 @@ const getUserWithEmail = (email) => {
    * @return {Promise<{}>} A promise to the user.
   */
  ///////////////////////////////////////////////////////////////////////////////////////
- const addUser = function (user) {
-   const userId = Object.keys(users).length + 1;
-   user.id = userId;
-   users[userId] = user;
-   return Promise.resolve(user);
+ const addUser = (name, password, email) {
+  return pool
+      .query('INSERT INTO users (name, password, email) VALUES ($1, $2, $3) RETURNING *;',[name, password, email])
+      .then ((result) => {
+        return result;
+      })
+      .catch((err) => {
+        console.log(err.message);
+      })
+ 
   };
   
   ///////////////////////////////////////////////////////////////////////////////////////
