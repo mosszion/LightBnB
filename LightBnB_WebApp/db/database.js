@@ -193,10 +193,50 @@ const getAllProperties = function (options, limit = 10) {
 ///////////////////////////////////////////////////////////////////////////////////////
 
 const addProperty = function (property) {
-  const propertyId = Object.keys(properties).length + 1;
-  property.id = propertyId;
-  properties[propertyId] = property;
-  return Promise.resolve(property);
+  console.log(property.title)
+  const queryParams = [];
+  const queryString = ` INSERT INTO properties (
+    owner_id, 
+    title,
+    description, 
+    thumbnail_photo_url, 
+    cover_photo_url, 
+    cost_per_night, 
+    street, 
+    city,
+    province, 
+    post_code, 
+    country, 
+    parking_spaces, 
+    number_of_bathrooms, 
+    number_of_bedrooms) 
+    VALUES 
+    ( `;
+
+    queryParams.push(property.owner_id);
+    queryParams.push(property.title);
+    queryParams.push(property.description);
+    queryParams.push(property.thumbnail_photo_url);
+    queryParams.push(property.cover_photo_url);
+    queryParams.push(property.cost_per_night);
+    queryParams.push(property.street);
+    queryParams.push(property.city);
+    queryParams.push(property.province);
+    queryParams.push(property.post_code);
+    queryParams.push(property.country);
+    queryParams.push(property.parking_spaces);
+    queryParams.push(property.number_of_bathrooms);
+    queryParams.push(property.number_of_bedrooms);
+
+   for(let i = 0; i < queryParams.length ; i++) {
+    queryString += `$${queryParams[i]},`
+    if( i === queryParams.length-1) {
+      queryString += `$${queryParams[i]} )`
+    }
+   }
+
+   queryString += `RETRUNING *;`
+  
 };
 
 
