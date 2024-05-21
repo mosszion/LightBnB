@@ -1,4 +1,5 @@
 # LightBnB
+* This is a simple single page app that uses a server-side Javascript to display the information from queries to web pages via SQL queries.
 
 ## Project Structure
 
@@ -53,3 +54,11 @@
 * `routes` contains the router files which are responsible for any HTTP requests to `/users/something` or `/api/something`. 
 * `styles` contains all of the sass files. 
 * `server.js` is the entry point to the application. This connects the routes to the database.
+
+### Project Overview
+
+!["Login Page "](https://github.com/mosszion/LightBnB/blob/main/screenshots/loginPage.png)
+!["Create a new Listing"](https://github.com/mosszion/LightBnB/blob/main/screenshots/createListing.png)
+!["Shows listings of a particular user"](https://github.com/mosszion/LightBnB/blob/main/screenshots/mylistings.png)
+!["Search page "](https://github.com/mosszion/LightBnB/blob/main/screenshots/search.png)
+
